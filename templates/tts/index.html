@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block con %}
+    <h1><b>TEXT-TO-SPEECH</b></h1>
+
+    <a download href="/media/noimage.png">DOWNLOAD</a>
+
+    <form method="POST">
+        {% csrf_token %}
+        <textarea name="bf" class="form-control mt-5" placeholder="문장을 입력하세요" style="height: 200px;">{{b}}</textarea>
+
+        <div class="row mt-5">
+            <div class="col-sm-8">
+                <input type="text" name="fn" class="form-control" placeholder="파일이름을 입력해주세요" value="{{f}}">
+            </div>
+            <div class="col-sm-4">
+                <select class="form-select" name="lang">
+                    <option value="ko" {% if l == "ko" %}selected{% endif %}>KOREAN</option>
+                    <option value="en" {% if l == "en" %}selected{% endif %}>ENGLISH</option>
+                    <option value="ja" {% if l == "ja" %}selected{% endif %}>JAPANESE</option>
+                    <option value="zh-cn" {% if l == "zh-cn" %}selected{% endif %}>CHINESE</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mt-5 text-center">
+            <button class="btn btn-dark" style="width: 30%;">CONVERT</button>
+            <a class="btn btn-dark" href="/media/tts/{{f}}.mp3" style="width: 30%;" {% if not f %}disabled{% endif %} download>DOWNLOAD</a>
+        </div>
+    </form>
+{% endblock %}
